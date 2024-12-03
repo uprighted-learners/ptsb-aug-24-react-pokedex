@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import DisplayPokemon from './DisplayPokemon'
+import Loading from './Loading'
 
 export default function Pokedex({ poke }) {
 
@@ -35,9 +36,15 @@ export default function Pokedex({ poke }) {
         if (poke !== "") getData()
     }, [poke])
 
+    const render = () => {
+        if (error) return <h1>{error}</h1>
+        if (!data) return <Loading />
+        if (data) return <DisplayPokemon data={data} />
+    }
+
     return (
         <div>
-            <DisplayPokemon data={data} />
+            {render()}
         </div>
     )
 }
